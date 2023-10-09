@@ -1,0 +1,41 @@
+body{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    min-height: 100vh;
+    font-family: 'Jost' , sans-serif;
+    text-align: center;
+    background: url(AB.png) no-repeat center;
+    background-size: cover;
+    overflow: hidden;
+}
+a{
+    margin-left: 30px;
+}
+div{
+    height: 50px;
+    width: 250px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    background-color: hsl(240, 100%, 27%);
+    color: white;
+    border-radius: 1.5em;
+    margin-top: 125%;
+    margin-left: 195%;
+}
+
+#box1 {
+    background-color: hsla(36, 91%, 45%, 0.966);
+}
+h1{
+    padding: 2.5%;
+}
+#box1:hover{
+    background-color: hsl(36, 91%, 25%);
+}
+div:hover{
+    background-color: hsl(240, 100%, 7%);
+    transform: scale(.95);
+    transition-duration: .8s;
+}
+
+
