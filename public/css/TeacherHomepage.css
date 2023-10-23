@@ -1,0 +1,83 @@
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+header {
+    background-color: #02055d;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+}
+main{
+    flex: 1;
+}
+
+#img1{
+    float: left;
+    margin-left: 10px;
+    margin-top: -70px;
+}
+#img2{
+    float: right;
+    margin-right: 10px;
+    margin-top: -65px;  
+}
+
+.container {
+    display: flex;
+    width: 100%;
+}
+
+.Faculty-profile {
+    flex: 30%;
+    background-color: hsl(36, 91%, 45%);
+    color: #fff;
+    padding: 20px;
+    font-family:cursive ;
+    height: 542px;
+}
+
+.upload-notes {
+    flex: 70%;
+    margin-left: 5px;
+    padding: 5px;
+    font-size: 24px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+h1 {
+    font-size: 30px;
+}
+
+p {
+    font-size: 25px;
+}
+
+.upload-form {
+    max-width: 400px;
+    margin-left: 20px;
+    font-size: 30px;
+}
+.noteFile{
+    font-size: 20px;
+    cursor: pointer;
+}
+.noteFile a:hover {
+    background-color:  hsl(36, 91%, 45%);
+    color: black;
+}
+
+
+.footer {
+    background-color: #02055d;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    height: 80px;
+}

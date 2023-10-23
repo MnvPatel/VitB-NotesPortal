@@ -15,10 +15,14 @@
         <div class="signup">
             <form action = "/TeacherRegistration" method="POST">
                 <label for="chk" aria-hidden="true">TEACHER</label>
-                <input type="email" name="email" placeholder="email" required="">
-                <input type="RegistrationNumber" name="RegistrationNumber" placeholder="Reg. No." pattern="[0-9]{6}" required="">
-                <input type="password" name="pswd" placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required="">
-                <input type="password" name="confirmpswd" placeholder="Confirm Password" required="">
+                <input type="email" name="email" placeholder="email" required="" id="odd">
+                <input type="RegistrationNumber" name="RegistrationNumber" placeholder="Reg. No." pattern="[0-9]{6}" required="" id="even">
+                <input type="name" name="name" placeholder="Full name" id="odd">
+                <input type="designation" name="designation" placeholder="Designation" required="" id="even">
+                <input type="gender" name="gender" placeholder="Gender" id="odd">
+                <input type="date" name="DOB" placeholder="DOB" required="" id="even">
+                <input type="password" name="pswd" placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required="" id="odd">
+                <input type="password" name="confirmpswd" placeholder="Confirm Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required="" id="even">
                 <a href="Teacherlogin.hbs" style="text-decoration: none">
                 <button>Register</button>
                 </a>
@@ -27,3 +31,4 @@
     </div>
 </body>
 </html>
+

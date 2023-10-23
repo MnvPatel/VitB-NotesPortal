@@ -5,7 +5,7 @@ const Teacher = require("../models/teachers");
 const authTeacher = async(req, res, next) => {
     try {
         const token = req.cookies.jwt;
-        const verifyTeacher = jwt.verify(token, process.env.TEACHER_SECRET_KEY);
+        const verifyTeacher = jwt.verify(token, process.env.Teacher_SECRET_KEY);
         console.log(verifyTeacher);
 
         const Teacher = await Register.findOne({_id:verifyTeacher._id});

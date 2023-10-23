@@ -6,10 +6,10 @@ const auth = async(req, res, next) => {
     try {
         const token = req.cookies.jwt;
         const verifyStudent = jwt.verify(token, process.env.STUDENT_SECRET_KEY);
-        // console.log(verifyStudent);
+        console.log(verifyStudent);
 
         const student = await Register.findOne({_id:verifyStudent._id});
-        // console.log(student);
+        console.log(student);
         
         req.token = token;
         req.student = student;

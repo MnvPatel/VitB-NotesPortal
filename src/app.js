@@ -9,6 +9,7 @@ const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 const auth = require("./middleware/auth");
 const authTeacher = require("./middleware/authTeacher");
+const User = require('./models/registers');
 
 const Register = require("./models/registers"); //Collection Name
 const Teacher = require("./models/teachers");
@@ -52,15 +53,26 @@ app.post("/StudentRegistration", async(req, res) =>{
     try{
         const password = req.body.pswd;
         const cpassword = req.body.confirmpswd;
+
+        // Check if the email ends with "@vitbhopal.ac.in"
+        const email = req.body.email;
+        if (!email.endsWith("@vitbhopal.ac.in")) {
+            res.send("Please use an email with the domain '@vitbhopal.ac.in'");
+            return;
+        }
+
         if (password === cpassword){
             const registerUser = Register ({
+                name: req.body.name,
                 email: req.body.email,
                 RegistrationNumber: req.body.RegistrationNumber,
+                branch: req.body.branch,
+                DOB: req.body.DOB,
+                gender: req.body.gender,
                 pswd:password,
                 confirmpswd: cpassword
             })
             // console.log("the success part " + registerUser);
-
             const token = await registerUser.generateAuthToken();
             // console.log("token part " + token);
 
@@ -71,7 +83,7 @@ app.post("/StudentRegistration", async(req, res) =>{
 
             const registered = await registerUser.save();
             // console.log("page part " + registered);
-            res.status(201).render("Studentlogin");
+            res.status(201).redirect("Studentlogin");
         }else {
             res.send("Password does not match");
             // throw new Error("Password does not match");
@@ -89,16 +101,28 @@ app.post("/TeacherRegistration", async(req, res) =>{
     try{
         const password = req.body.pswd;
         const cpassword = req.body.confirmpswd;
+
+        // Check if the email ends with "@vitbhopal.ac.in"
+        const email = req.body.email;
+        if (!email.endsWith("@vitbhopal.ac.in")) {
+            res.send("Please use an email with the domain '@vitbhopal.ac.in'");
+            return;
+        }
+
         if (password === cpassword){
             const registerTeacher = Teacher ({
+                name: req.body.name,
                 email: req.body.email,
                 RegistrationNumber: req.body.RegistrationNumber,
+                designation: req.body.designation,
+                DOB: req.body.DOB,
+                gender: req.body.gender,
                 pswd:password,
                 confirmpswd: cpassword
             })
-            // console.log("the success part " + registerTeacher);
+            console.log("the success part " + registerTeacher);
             const token = await registerTeacher.generateAuthTokenTeacher();
-            // console.log("token part " + token);
+            console.log("token part " + token);
             
             res.cookie("jwt", token, {
                 expires: new Date(Date.now() + 600000),
@@ -106,8 +130,8 @@ app.post("/TeacherRegistration", async(req, res) =>{
             });
 
             const registered = await registerTeacher.save();
-            // console.log("page part " + registered);
-            res.status(201).render("Teacherlogin");
+            console.log("pxrt " + registered);
+            res.status(201).redirect("Teacherlogin");
         }else {
             res.send("Password does not match");
             // throw new Error("Password does not match");
@@ -142,10 +166,10 @@ app.post("/Studentlogin", async(req, res) =>{
         });
 
         if (isMatch){
-            res.status(201).render("StudentHomepage");
+            res.status(201).redirect("StudentHomepage");
         }else{
-            res.send("Invalid Login Credentials");
-            // throw new Error("Invalid Login Credentials");
+            res.render("Studentlogin",{message: "Invalid Login Credentials"});
+            // throw new Error("Invalid Login Credentials").redirect("Studentlogin");
         }
     } catch (error){
         res.status(400).send("Invalid Login Credentials");
@@ -174,7 +198,7 @@ app.post("/Teacherlogin", async(req, res) =>{
         });
 
         if (teacherMatch){
-            res.status(201).render("TeacherHomepage");
+            res.status(201).redirect("TeacherHomepage");
         }else{
             res.send("Invalid Login Credentials");
             // throw new Error("Invalid Login Credentials");
@@ -209,16 +233,41 @@ app.get("/Logout", auth, async(req, res) =>{
         console.log("logout successfully");
 
         await req.student.save();
-        res.render("index");
+        res.redirect("/");
 
     } catch (error) {
         res.status(500).send(error);     
     }
 });
 
-app.get("/TeacherHomepage", authTeacher, (req, res) =>{
-    res.render("TeacherHomepage");
+app.get('/StudentProfile', auth, async (req, res) => {
+    try {
+      const user = await User.findById(req.student._id);
+      if (!user) {
+        return res.status(404).send('User not found');
+      }
+  
+      res.render('StudentProfile', { user });
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Internal Server Error');
+    }
 });
+
+app.get('/TeacherHomepage', authTeacher, async (req, res) => {
+    try {
+      const teacher = await Teacher.findById(req.Teacher._id);
+      if (!teacher) {
+        return res.status(404).send('User not found');
+      }
+  
+      res.redirect('TeacherHomepage', { teacher });
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Internal Server Error');
+    }
+});
+
 
 app.get("/", (req, res) =>{
     res.send("hello from the VITB Notes Portal")

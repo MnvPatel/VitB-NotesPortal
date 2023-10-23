@@ -1,11 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teacher Homepage</title>
+    <title>VIT Notes Portal</title>
+    <link rel="stylesheet" href="/VitB-NotesPortal/public/css/TeacherHomepage.css">
+    <script src="https://kit.fontawesome.com/ef8b76312e.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <h1>Hey, Welcome to Teacher Homepage, Work is under Progress!</h1>
+    <header>
+        <h1>VIT Notes Portal</h1>
+        <img id="img1" src="/Images.html/vit home page.jpg" alt="Vit Logo">
+        <img id="img2" src="/Images.html/symbol.jpg" alt="Vit Logo">
+    </header>
+    <main>
+    <div class="container">
+        <div class="Faculty-profile">
+            <h1>{{teacher.name}}'s Profile  <a href=""><i class="fa-regular fa-id-card" style="color: #02055d;"></i></a></h1>
+            <hr>
+            <p>Faculty Name: {{teacher.name}}</p>
+            <p>Faculty ID : {{teacher.RegistrationNumber}}</p>
+            <p>Designation: {{teacher.designation}}</p>
+            <p>Email : {{teacher.email}}</p>
+            <p>Date of Birth : {{teacher.DOB}}</p>
+            <p>Gender : {{teacher.gender}}</p>            
+            <!-- Add more Faculty profile information here -->
+        </div>
+        <div class="upload-notes">
+            <h2>Upload Notes <a href=""><i class="fa-solid fa-file-arrow-up fa-sm" style="color: #02055d;"></i></a></h2>
+            <hr>
+            <div class="upload-form">
+                <form action="upload.php" method="post" enctype="multipart/form-data">
+                    <label for="noteFile">Upload Notes (PDF format):</label>
+                    <br>
+                    <br>
+                    <input type="file" name="noteFile" class="noteFile" accept=".pdf,.docx,.png,.jpg" required>
+                    <br>
+                    <br>
+                    <input type="submit" class="noteFile" value="Upload" >
+                </form>
+            </div>
+        </div>
+    </div>
+    </main>
+    <footer>
+        <div class="footer">
+            <p>&copy; 2023 VITB Notes Portal</p>
+        </div>
+    </footer>
 </body>
 </html>
